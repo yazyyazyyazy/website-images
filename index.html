@@ -5,7 +5,7 @@ body{
 
 .gallery{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:0;
     width:100%;
 }
@@ -20,69 +20,57 @@ body{
     height:100%;
     object-fit:cover;
     display:block;
+    transition:transform 0.15s ease;
 }
+
+.tile:hover img{
+    transform:scale(1.02);
+}
+    
 </style>
 
 <div class="gallery" id="gallery"></div>
 
 <script>
-// ======================
-// PUT YOUR IMAGES HERE
-// ======================
-
 const galleries = [
 
 [
-"https://your-image-1a.jpg",
-"https://your-image-1b.jpg",
-"https://your-image-1c.jpg"
+"https://your-ceramic-1.jpg",
+"https://your-reference-1.jpg"
 ],
 
 [
-"https://your-image-2a.jpg",
-"https://your-image-2b.jpg"
+"https://your-ceramic-2.jpg",
+"https://your-reference-2.jpg"
 ],
 
 [
-"https://your-image-3a.jpg",
-"https://your-image-3b.jpg"
+"https://your-ceramic-3.jpg",
+"https://your-reference-3.jpg"
 ],
 
 [
-"https://your-image-4a.jpg",
-"https://your-image-4b.jpg"
+"https://your-ceramic-4.jpg",
+"https://your-reference-4.jpg"
 ],
 
 [
-"https://your-image-5a.jpg",
-"https://your-image-5b.jpg"
+"https://your-ceramic-5.jpg",
+"https://your-reference-5.jpg"
 ],
 
 [
-"https://your-image-6a.jpg",
-"https://your-image-6b.jpg"
-],
-
-[
-"https://your-image-7a.jpg",
-"https://your-image-7b.jpg"
-],
-
-[
-"https://your-image-8a.jpg",
-"https://your-image-8b.jpg"
+"https://your-ceramic-6.jpg",
+"https://your-reference-6.jpg"
 ]
 
 ];
-
-// ======================
-// DON'T TOUCH BELOW HERE
-// ======================
 
 const gallery = document.getElementById("gallery");
 
 galleries.forEach(images => {
 
+    // preload both images
     images.forEach(src => {
         const preload = new Image();
         preload.src = src;
@@ -97,27 +85,12 @@ galleries.forEach(images => {
     tile.appendChild(img);
     gallery.appendChild(tile);
 
-    let current = 0;
-    let interval;
-
     tile.addEventListener("mouseenter", () => {
-
-        interval = setInterval(() => {
-
-            current = (current + 1) % images.length;
-            img.src = images[current];
-
-        }, 500);
-
+        img.src = images[1];
     });
 
     tile.addEventListener("mouseleave", () => {
-
-        clearInterval(interval);
-
-        current = 0;
         img.src = images[0];
-
     });
 
 });
