@@ -1,0 +1,124 @@
+<style>
+body{
+    margin:0;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    width:100%;
+}
+
+.tile{
+    aspect-ratio:1/1;
+    overflow:hidden;
+}
+
+.tile img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+</style>
+
+<div class="gallery" id="gallery"></div>
+
+<script>
+// ======================
+// PUT YOUR IMAGES HERE
+// ======================
+
+const galleries = [
+
+[
+"https://your-image-1a.jpg",
+"https://your-image-1b.jpg",
+"https://your-image-1c.jpg"
+],
+
+[
+"https://your-image-2a.jpg",
+"https://your-image-2b.jpg"
+],
+
+[
+"https://your-image-3a.jpg",
+"https://your-image-3b.jpg"
+],
+
+[
+"https://your-image-4a.jpg",
+"https://your-image-4b.jpg"
+],
+
+[
+"https://your-image-5a.jpg",
+"https://your-image-5b.jpg"
+],
+
+[
+"https://your-image-6a.jpg",
+"https://your-image-6b.jpg"
+],
+
+[
+"https://your-image-7a.jpg",
+"https://your-image-7b.jpg"
+],
+
+[
+"https://your-image-8a.jpg",
+"https://your-image-8b.jpg"
+]
+
+];
+
+// ======================
+// DON'T TOUCH BELOW HERE
+// ======================
+
+const gallery = document.getElementById("gallery");
+
+galleries.forEach(images => {
+
+    images.forEach(src => {
+        const preload = new Image();
+        preload.src = src;
+    });
+
+    const tile = document.createElement("div");
+    tile.className = "tile";
+
+    const img = document.createElement("img");
+    img.src = images[0];
+
+    tile.appendChild(img);
+    gallery.appendChild(tile);
+
+    let current = 0;
+    let interval;
+
+    tile.addEventListener("mouseenter", () => {
+
+        interval = setInterval(() => {
+
+            current = (current + 1) % images.length;
+            img.src = images[current];
+
+        }, 500);
+
+    });
+
+    tile.addEventListener("mouseleave", () => {
+
+        clearInterval(interval);
+
+        current = 0;
+        img.src = images[0];
+
+    });
+
+});
+</script>
